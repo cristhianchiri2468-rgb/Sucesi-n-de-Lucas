@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sucesión de Lucas</title>
+    <style>
+        /* Estilos Generales */
+        body {
+            background-color: #e9ecef;
+            color: #333;
+            font-family: "Helvetica", "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Contenedor Principal (Sin Flex/Grid) */
+        .wrapper {
+            width: 850px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            padding: 40px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Encabezado con Tablas para centrar */
+        .header-box {
+            background-color: #002060;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid #16365c;
+            margin-bottom: 30px;
+        }
+
+        .header-box h1 {
+            margin: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        /* Títulos y Secciones */
+        h2 {
+            color: #16365c;
+            border-bottom: 1px solid #16365c;
+            padding-bottom: 5px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            color: #365f91;
+            margin-bottom: 10px;
+        }
+
+        p {
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+        /* Fórmulas Matemáticas */
+        .math-display {
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            font-size: 20px;
+            color: #0066cc;
+            background-color: #fcfcfc;
+            padding: 15px;
+            border: 1px solid #eee;
+        }
+
+        /* Tabla de Identidades Tradicional */
+        table.identidades {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table.identidades th {
+            background-color: #16365c;
+            color: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        table.identidades td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        /* Bloque de Código */
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid #16365c;
+            padding: 15px;
+            overflow: auto;
+            white-space: pre;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .kw { color: #d73a49; font-weight: bold; }
+        .cmt { color: #6a737d; font-style: italic; }
+
+        /* Sección Final / Pie */
+        .footer {
+            margin-top: 50px;
+            border-top: 1px double #ccc;
+            padding-top: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="header-box">
+        <h1>La Sucesión de Lucas</h1>
+        <div style="font-size: 14px; margin-top: 5px;">Teoría Avanzada y Aplicaciones Globales (V3)</div>
+    </div>
+
+    <section>
+        <h2>1. Prefacio: La Dualidad Lucas-Fibonacci</h2>
+        <p>En el estudio de las recurrencias lineales, la sucesión de Lucas (L<sub>n</sub>) es la aliada inseparable de la sucesión de Fibonacci (F<sub>n</sub>). Mientras que Fibonacci surge de la estructura biológica de crecimiento, Lucas emerge de la necesidad de profundizar en la proporción áurea. Este tratado expande la sucesión desde lo aritmético hasta la física teórica.</p>
+    </section>
+
+    <section>
+        <h2>2. Marco Algebraico y Ecuaciones Diferenciales</h2>
+        <h3>2.1 La Ecuación Característica y el Espacio Vectorial</h3>
+        <p>Toda sucesión que satisface L<sub>n</sub> = L<sub>n-1</sub> + L<sub>n-2</sub> pertenece a un espacio vectorial de dimensión 2 sobre los números reales. Cualquier término de Lucas puede verse como un vector en este espacio:</p>
+        <div class="math-display">
+            L<sub>n</sub> = &phi;<sup>n</sup> + &psi;<sup>n</sup> = &phi;<sup>n</sup> + (-&phi;)<sup>-n</sup>
+        </div>
+
+        <h3>2.2 Relación con Ecuaciones Diferenciales</h3>
+        <p>La importancia de Lucas es la contraparte discreta de la ecuación diferencial lineal de segundo orden y'' - y' - y = 0. Las soluciones en puntos enteros dan lugar a comportamientos idénticos.</p>
+    </section>
+
+    <section>
+        <h2>5. Identidades de Sumación</h2>
+        <table class="identidades">
+            <tr>
+                <th>Categoría</th>
+                <th>Identidad Matemática</th>
+                <th>Aplicación Práctica</th>
+            </tr>
+            <tr>
+                <td>Identidad de Pitágoras</td>
+                <td>L<sub>n</sub><sup>2</sup> - 5F<sub>n</sub><sup>2</sup> = 4(-1)<sup>n</sup></td>
+                <td>Verificación de señales</td>
+            </tr>
+            <tr>
+                <td>Suma de potencias</td>
+                <td>&sum; L<sub>i</sub> = L<sub>n+2</sub> - 3</td>
+                <td>Crecimiento digital</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>10. Análisis Computacional</h2>
+        <p>Implementación en Octave mediante el uso de vectores (Versión simplificada):</p>
+        <div class="code-block">
+n = 12;
+L = zeros(1, n+1);
+L(1) = 2; <span class="cmt">% Representa L(0)</span>
+L(2) = 1; <span class="cmt">% Representa L(1)</span>
+
+<span class="kw">for</span> i = 3:n+1
+    L(i) = L(i-1) + L(i-2);
+<span class="kw">end</span>
+
+fprintf('El numero de Lucas L(%d) es: %d\n', n, L(n+1));
+        </div>
+    </section>
+
+    <section>
+        <h2>11. Trigonometría Hiperbólica y Lucas</h2>
+        <p>Existe una conexión profunda entre las funciones hiperbólicas y esta sucesión:</p>
+        <div class="math-display" style="border: 2px double #365f91;">
+            L<sub>n</sub> = 2 cosh(n ln &phi;)
+        </div>
+    </section>
+
+    <div class="footer">
+        © 2026 Gran Enciclopedia Matemática - Pablo (Maquetación Tradicional)
+    </div>
+</div>
+
+</body>
+</html>
