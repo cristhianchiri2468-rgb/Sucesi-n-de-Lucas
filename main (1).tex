@@ -1,0 +1,113 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+
+% Configuración de márgenes
+\geometry{letterpaper, margin=0.8in}
+
+% --- DEFINICIÓN DE COLORES ---
+\definecolor{tituloPrincipal}{RGB}{0, 32, 96}
+\definecolor{seccionColor}{RGB}{22, 54, 92}
+\definecolor{subSeccionColor}{RGB}{54, 95, 145}
+\definecolor{fondoCodigo}{RGB}{248, 249, 250}
+\definecolor{colorFormula}{RGB}{0, 102, 204}
+\definecolor{bordeTabla}{RGB}{180, 180, 180}
+
+% Configuración de Títulos
+\titleformat{\section}{\color{seccionColor}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\color{subSeccionColor}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% Estilo de Código Octave con colores
+\lstset{
+    language=Octave,
+    backgroundcolor=\color{fondoCodigo},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black}\itshape,
+    stringstyle=\color{purple},
+    identifierstyle=\color{black},
+    frame=leftline,
+    framesep=10pt,
+    xleftmargin=15pt,
+    rulecolor=\color{seccionColor},
+    showstringspaces=false,
+    breaklines=true
+}
+
+\begin{document}
+
+\begin{center}
+    \begin{tcolorbox}[colback=tituloPrincipal, colframe=tituloPrincipal, arc=3pt, center title, inner topsep=10pt, inner bottomsep=10pt]
+        \color{white} \LARGE \textbf{La Sucesión de Lucas, Teoría Avanzada y Aplicaciones Globales }
+    \end{tcolorbox}
+\end{center}
+
+\section*{1. Prefacio: La Dualidad Lucas-Fibonacci}
+En el estudio de las recurrencias lineales, la sucesión de Lucas ($L_n$) es la aliada inseparable de la sucesión de Fibonacci ($F_n$). Mientras que Fibonacci surge de la estructura biológica de crecimiento, Lucas emerge de la necesidad de profundizar en la proporción áurea. Este tratado expande la sucesión desde lo aritmético hasta la física teórica.
+
+\section*{2. Marco Algebraico y Ecuaciones Diferenciales}
+\subsection*{2.1 La Ecuación Característica y el Espacio Vectorial}
+Toda sucesión que satisface $L_n = L_{n-1} + L_{n-2}$ pertenece a un espacio vectorial de dimensión 2 sobre los números reales. La base natural de este espacio está formada por las potencias del número áureo ($\phi$) y su conjugado ($\psi$). Cualquier término de Lucas puede verse como un vector en este espacio:
+{\color{colorFormula}
+\[ L_n = \phi^n + \psi^n = \phi^n + (-\phi)^{-n} \]}
+
+\section*{3. Funciones Generatrices: El Corazón Analítico}
+La función generatriz de una sucesión es una "funda" que contiene todos sus términos. Para la sucesión de Lucas, la función generatriz ordinaria se define como:
+{\color{colorFormula}
+\[ g(x) = \sum_{n=0}^{\infty} L_n x^n = \frac{2-x}{1-x-x^2} \]}
+
+\section*{4. Interpretación Combinatoria: Tiling en Ciclos}
+Mientras que Fibonacci combina formas de cubrir un tablero de $1 \times n$, Lucas se asocia a la combinatoria de collares o ciclos. Un número de Lucas $L_n$ es el número de formas de cubrir un tablero circular (ciclo) de longitud $n$ con cuadrados de $1 \times 1$ y fichas de $1 \times 2$ (dominos).
+
+\section*{5. Identidades de Sumación y Productos Cruzados}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{seccionColor!10} \textbf{Categoría} & \textbf{Identidad Matemática} & \textbf{Aplicación Práctica} \\ \hline
+Identidad de Pitágoras & $L_n^2 - 5F_n^2 = 4(-1)^n$ & Verificación de señales en criptografía digital \\ \hline
+Suma de potencias & $\sum_{i=1}^{n} L_i = L_{n+2} - 3$ & Análisis de algoritmos de crecimiento \\ \hline
+Relación de Derivada & $D[L_n(x)] = n F_{n-1}(x)$ & Modelos de variación en sistemas dinámicos \\ \hline
+\end{tabular}
+\end{center}
+
+\section*{6. Polinomios de Lucas: Generalización en el Plano Complejo}
+Los números de Lucas son casos específicos de los \textbf{Polinomios de Lucas} $L_n(x)$, definidos por:
+{\color{colorFormula}
+\[ L_n(x) = x L_{n-1}(x) + L_{n-2}(x) \text{ con } L_0(x)=2, L_1(x)=x \]}
+
+\section*{10. Suite de Análisis Computacional en Octave (Versión Simplificada)}
+Este código implementa el cálculo de la sucesión de Lucas utilizando un vector para almacenar los términos, facilitando la visualización de la serie completa.
+
+\begin{lstlisting}
+
+n = 12; 
+
+L = zeros(1, n+1);
+
+L(1) = 2; % Representa L(0)
+L(2) = 1; % Representa L(1)
+
+for i = 3:n+1
+    L(i) = L(i-1) + L(i-2);
+end
+
+fprintf('El numero de Lucas L(%d) es: %d\n', n, L(n+1));
+\end{lstlisting}
+
+\section*{11. Trigonometría Hiperbólica y Lucas}
+Existe una conexión profunda entre las funciones hiperbólicas y esta sucesión:
+{\color{colorFormula}
+\[ L_n = 2 \cosh(n \ln \phi) \]}
+
+\section*{12. Conclusión}
+La sucesión de Lucas sigue siendo un campo de investigación activo, fundamental para entender la armonía entre el álgebra discreta y la geometría continua.
+
+\end{document}
