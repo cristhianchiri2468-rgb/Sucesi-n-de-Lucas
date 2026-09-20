@@ -16,6 +16,7 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            touch-action: manipulation;
         }
         .container {
             text-align: center;
@@ -25,6 +26,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.03);
             max-width: 400px;
             width: 90%;
+            position: relative;
         }
         h1 {
             font-weight: 300;
@@ -35,9 +37,10 @@
         .buttons {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 20px;
             position: relative;
-            height: 50px;
+            height: 60px;
         }
         button {
             padding: 12px 30px;
@@ -45,12 +48,15 @@
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             font-weight: 400;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         #btn-yes {
             background-color: #ffb7b2;
             color: white;
+            z-index: 1;
         }
         #btn-yes:hover {
             background-color: #ff9aa2;
@@ -60,9 +66,8 @@
             background-color: #e0e0e0;
             color: #777;
             position: absolute;
-        }
-        .hidden {
-            display: none;
+            right: 20px;
+            z-index: 2;
         }
         .fade-in {
             animation: fadeIn 1s ease forwards;
@@ -79,42 +84,44 @@
         <h1 id="question">¿Me dejas acompañarte por el resto de tu vida? :3</h1>
         <div class="buttons" id="btn-container">
             <button id="btn-yes" onclick="celebrate()">Sí</button>
-            <button id="btn-no" onmouseover="moveButton()" onclick="moveButton()">No</button>
+            <button id="btn-no" onmouseover="moveButton()" onpointerdown="moveButton()" ontouchstart="moveButton(event)">No</button>
         </div>
     </div>
 
     <script>
-        // Lógica interactiva en JavaScript
-        function moveButton() {
+        function moveButton(event) {
+            if (event) {
+                event.preventDefault();
+            }
+
             const btnNo = document.getElementById('btn-no');
             const container = document.getElementById('game-card');
             
-            // Límites para que el botón no se salga del cuadro visible
             const padding = 20;
             const maxX = container.clientWidth - btnNo.clientWidth - padding;
             const maxY = container.clientHeight - btnNo.clientHeight - padding;
             
-            // Posiciones aleatorias
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
             
+            btnNo.style.right = 'auto';
             btnNo.style.left = randomX + 'px';
             btnNo.style.top = randomY + 'px';
         }
 
         function celebrate() {
             const card = document.getElementById('game-card');
-            // Cambia el contenido con un diseño limpio al presionar SÍ
             card.innerHTML = `
                 <div class="fade-in">
-                    <h1 style="color: #ff9aa2; font-size: 32px;">¡Sabía que dirías que sí! racias</h1>
+                    <h1 style="color: #ff9aa2; font-size: 28px;">¡Gracias por estar aquí! ✨</h1>
                     <p style="font-weight: 300; color: #666; line-height: 1.6;">
-                        Gracias por hacer mis días más bonitos. Preparé esta página para recordarte lo mucho que eres y lo increible que puedes ser . Eres mi refugio de este mundo te doy las gracias :")
+                        Solo quería recordarte que siempre puedes contar conmigo. En los días buenos y en los no tan buenos, aquí estaré para escucharte, apoyarte y acompañarte en todo lo que necesites.
                     </p>
-                    <span style="font-size: 40px;">✨✨</span>
+                    <span style="font-size: 30px;">🤍🌱</span>
                 </div>
             `;
         }
     </script>
 </body>
 </html>
+
